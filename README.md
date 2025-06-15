@@ -4,13 +4,13 @@ To clone this repository and start working on it, follow these steps:
 
 ## 1. Clone the repository
 ```bash
-git clone <repository-url>
+git clone https://github.com/jaiminsavaliya316/server-cs5610-final-project.git
 ```
 Replace `<repository-url>` with the actual URL of this repository.
 
 ## 2. Navigate to the project directory
 ```bash
-cd <project-directory>
+cd server-cs5610-final-project
 ```
 Replace `<project-directory>` with the name of the cloned folder.
 
