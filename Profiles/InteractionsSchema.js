@@ -5,7 +5,8 @@ const interactionsSchema = new mongoose.Schema({
   title: { type: String, required: true },
   content: { type: String, required: true },
   type: { type: String, required: true, enum: ["comment", "favorite"] },
-  movie_id: { type: String, required: true }
+  movie_id: { type: String, required: true },
+  created_at: { type: Date, default: Date.now },
 }, { collection: "interactions" });
 
 export default interactionsSchema;
