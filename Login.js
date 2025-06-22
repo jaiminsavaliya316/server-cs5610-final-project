@@ -21,7 +21,8 @@ export default function Login(app) {
         user: { 
           _id: user._id,
           username: user.username,
-          email: user.email
+          email: user.email,
+          userId: user.id,
         } 
       });
       
