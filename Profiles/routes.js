@@ -30,7 +30,9 @@ export default function ProfilesRoutes(app) {
 
   const findUserByIdFunc = async (req, res) => {
     const { userId } = req.params;
+    console.log(userId)
     const user = await dao.findUserById(userId);
+    console.log("user is this", user)
     res.send(user);
   };
 
@@ -59,14 +61,20 @@ export default function ProfilesRoutes(app) {
     res.send(status);
   }
 
+  const fetchUserByUNameUEmail = async (req, res) => {
+    const { username, email } = req.query;
+    const user = await dao.findUserByUNameUEmail(username, email);
+    res.send(user);
+  }
+  app.get("/api/users/:userId", findUserByIdFunc);
   app.put("/api/users/:userId", updateUserInDb);
   app.get("/api/interactions/:userId/favorites", fetchFavorites);
   app.get("/api/interactions/:userId/reviews", fetchReviews);
   app.get("/api/follows/:userId", fetchFollows);
-  app.get("/api/users/:userId", findUserByIdFunc);
   app.post("/api/follows", addFollow);
   app.delete("/api/follows/remove", removeFollow)
   app.get("/api/followStatus", checkFollowStatus);
+  app.get("/api/username", fetchUserByUNameUEmail);
 
   // other user's profile
   app.get("/api/interactions/:userId/othersfavorites", fetchFavorites);
