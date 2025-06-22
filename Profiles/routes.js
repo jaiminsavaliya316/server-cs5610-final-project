@@ -33,11 +33,40 @@ export default function ProfilesRoutes(app) {
     const user = await dao.findUserById(userId);
     res.send(user);
   };
+
+  const addFollow = async (req, res) => {
+    const follow = req.body;
+    const status = await dao.addFollowToDb(follow);
+    res.send(status);
+  }
+  
+  const removeFollow = async (req, res) => {
+      const { follower_id, following_id } = req.query;
+      // Add validation to ensure both parameters are provided
+      if (!follower_id || !following_id) {
+          return res.status(400).json({ 
+              error: 'Both follower_id and following_id are required' 
+          });
+      }
+
+      const status = await dao.removeFollowFromDb(follower_id, following_id);
+      res.send(status);
+  }
+
+  const checkFollowStatus = async (req, res) => {
+    const { follower_id, following_id } = req.query;
+    const status = await dao.findIfFollows(follower_id, following_id);
+    res.send(status);
+  }
+
   app.put("/api/users/:userId", updateUserInDb);
   app.get("/api/interactions/:userId/favorites", fetchFavorites);
   app.get("/api/interactions/:userId/reviews", fetchReviews);
   app.get("/api/follows/:userId", fetchFollows);
   app.get("/api/users/:userId", findUserByIdFunc);
+  app.post("/api/follows", addFollow);
+  app.delete("/api/follows/remove", removeFollow)
+  app.get("/api/followStatus", checkFollowStatus);
 
   // other user's profile
   app.get("/api/interactions/:userId/othersfavorites", fetchFavorites);

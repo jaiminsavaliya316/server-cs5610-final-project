@@ -2,7 +2,7 @@
 import model from "./model.js";
 import interactionsModel from "./InteractionsModel.js";
 import followersModel from "./followersModel.js";
-// import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from "uuid";
 
 export function updateUser(userId, userUpdates) {
   const res = model.updateOne({ _id: userId }, { $set: userUpdates });
@@ -33,32 +33,27 @@ export async function findFollows(userId) {
   return merged;
 }
 
+export function addFollowToDb(follow){
+  const newFollow = {...follow, _id: uuidv4()};
+  return followersModel.create(newFollow)
+}
 
+export function removeFollowFromDb(follower_id, following_id) {
+  return followersModel.deleteOne({ 
+    follower_id: follower_id, 
+    following_id: following_id 
+  });
+}
 
-
-
-
-// export function findAllCourses() {
-//   // return Database.courses;
-//  return model.find();
-// }
-
-// export function findCoursesForEnrolledUser(userId) {
-//   const { courses, enrollments } = Database;
-//   const enrolledCourses = courses.filter((course) =>
-//     enrollments.some((enrollment) => enrollment.user === userId && enrollment.course === course._id));
-//   return enrolledCourses;
-// }
-
-// export function createCourse(course) {
-//   const newCourse = { ...course, _id: uuidv4() };
-//   return model.create(newCourse);
-// }
-
-// export function deleteCourse(courseId) {
-//   return model.deleteOne({ _id: courseId });
-// }
-
-// export function updateCourse(courseId, courseUpdates) {
-//   return model.updateOne({ _id: courseId }, { $set: courseUpdates });
-// }
+export async function findIfFollows(follower_id, following_id) {
+  console.log("Checking if user follows another user:", follower_id, following_id);
+  const status = await followersModel.findOne({ 
+    follower_id: follower_id, 
+    following_id: following_id 
+  });
+  if (status) {
+    return true;
+  } else {
+    return false;
+  }
+}
