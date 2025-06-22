@@ -10,7 +10,7 @@ export function updateUser(userId, userUpdates) {
 }
 
 export function findUserById(userId) {
-  const res = model.findOne({ _id: userId }).lean();
+  const res = model.findOne({ _id: userId });
   return res;
 }
 
@@ -56,4 +56,9 @@ export async function findIfFollows(follower_id, following_id) {
   } else {
     return false;
   }
+}
+
+export async function findUserByUNameUEmail(username, email) {
+  const user = await model.findOne({username: username, email: email}).lean();
+  return user;
 }
