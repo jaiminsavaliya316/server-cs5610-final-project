@@ -8,3 +8,4 @@ const commentSchema = new mongoose.Schema(
   },
   { collection: 'comments' }
 );
+export default commentSchema;

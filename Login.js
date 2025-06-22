@@ -19,8 +19,10 @@ export default function Login(app) {
       res.json({ 
         success: true, 
         user: { 
+          _id: user._id,
           username: user.username,
-          email: user.email
+          email: user.email,
+          userId: user.id,
         } 
       });
       
@@ -31,7 +33,7 @@ export default function Login(app) {
 
   app.post('/api/signup', async (req, res) => {
     try {
-      const { username, password, email } = req.body;
+      const { username, password, email, phone, first_name, last_name, bio } = req.body;
       
       const existingUser = await User.findOne({ username });
       if (existingUser) {
@@ -39,13 +41,17 @@ export default function Login(app) {
       }
       
       const userCount = await User.countDocuments();
-      const userId = 1000 + userCount + 1;
+      const userId = (1000 + userCount + 1).toString();
       
       const newUser = new User({
         _id: userId,
         username,
         password,
-        email
+        email,
+        phone: phone || "",
+        first_name: first_name || "",
+        last_name: last_name || "",
+        bio: bio || ""
       });
       
       await newUser.save();

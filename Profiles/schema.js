@@ -9,7 +9,7 @@ const usersSchema = new mongoose.Schema({
   first_name: String,
   last_name: String,
   bio: String,
-  date_joined: Date,
+  date_joined: { type: String, default: () => new Date().toISOString().split('T')[0] },
   role: { 
     type: String, 
     required: true,
