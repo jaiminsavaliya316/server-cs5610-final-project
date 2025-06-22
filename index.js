@@ -2,6 +2,7 @@ import express from 'express'
 import "dotenv/config";
 import Home from "./Home.js";
 import Login from "./Login.js";
+import ProfilesRoutes from "./Profiles/routes.js";
 import cors from "cors";
 import mongoose from 'mongoose';
 
@@ -17,4 +18,6 @@ mongoose.connect(process.env.MONGO_CONNECTION_STRING || 'mongodb://localhost:270
 
 Home(app);
 Login(app);
+ProfilesRoutes(app);
+
 app.listen(process.env.PORT || 4000)
