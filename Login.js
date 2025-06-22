@@ -38,7 +38,8 @@ export default function Login(app) {
         return res.json({ success: false, message: 'Username already exists' });
       }
       
-      const userId = Math.floor(Math.random() * 900000) + 100000;
+      const userCount = await User.countDocuments();
+      const userId = 1000 + userCount + 1;
       
       const newUser = new User({
         _id: userId,
