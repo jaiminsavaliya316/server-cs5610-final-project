@@ -38,7 +38,10 @@ export default function Login(app) {
         return res.json({ success: false, message: 'Username already exists' });
       }
       
+      const userId = Math.floor(Math.random() * 900000) + 100000;
+      
       const newUser = new User({
+        _id: userId,
         username,
         password,
         email
