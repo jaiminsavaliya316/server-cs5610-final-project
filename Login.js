@@ -1,4 +1,5 @@
 import User from './User.js';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Login(app) {
   
@@ -40,8 +41,9 @@ export default function Login(app) {
         return res.json({ success: false, message: 'Username already exists' });
       }
       
-      const userCount = await User.countDocuments();
-      const userId = (1000 + userCount + 1).toString();
+      // changing id from number to string
+      // const userCount = await User.countDocuments();
+      const userId = uuidv4();
       
       const newUser = new User({
         _id: userId,
@@ -62,6 +64,7 @@ export default function Login(app) {
       });
       
     } catch (error) {
+      console.log(error)
       res.json({ success: false, message: 'Signup failed' });
     }
   });
