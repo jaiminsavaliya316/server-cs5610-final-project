@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 export function getAllCommentsForMovie(movieId) {
   // get the comments for the movie in order of oldest to newest
-  return interactionsModel.find({ movie_id: movieId, type: "comment" }).sort({ timestamp: -1 }).populate('user_id').lean();
+  return interactionsModel.find({ movie_id: movieId, type: "comment" }).sort({ created_at: -1 }).populate("user_id").lean();
 };
 
 export function addComment(comment) {
