@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const interactionsSchema = new mongoose.Schema({
   _id: { type: String, required: true },
-  user_id: { type: String, ref: "User" },
+  user_id: { type: String, ref: "usersModel" },
 
   title: { type: String, required: true },
   content: { type: String, required: true },
