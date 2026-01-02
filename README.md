@@ -1,3 +1,7 @@
+## Project Structure
+📦 **Server Repository** (you are here)
+🖥️ **Client Repository:** [cs5610-final-project](https://github.com/sewardwi/cs5610-final-project)
+
 # Getting Started
 
 To clone this repository and start working on it, follow these steps:
